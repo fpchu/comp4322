@@ -23,6 +23,30 @@ public class App {
     private JPanel panelMain;
     private JTextArea lsa_info;
 
+    public App() {
+        loadFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create a FileChooser
+                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+                int returnValue = jfc.showOpenDialog(null);
+                // int returnValue = jfc.showSaveDialog(null);
+
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = jfc.getSelectedFile();
+                    HashMap<String, HashMap<String, Integer>> lsa = null;
+                    try {
+                         lsa = read_lsa(selectedFile);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    System.out.println(lsa);
+                    lsa_info.append(lsa_to_String(lsa));
+                }
+
+            }
+        });
+    }
 
     private static HashMap<String, HashMap<String, Integer>> read_lsa(File fn) throws IOException {
         HashMap<String, HashMap<String, Integer>> m = new HashMap<String, HashMap<String, Integer>>();
@@ -45,37 +69,13 @@ public class App {
 
     public static String lsa_to_String(HashMap<String, HashMap<String, Integer>> lsa) {
         Iterator it = lsa.entrySet().iterator();
+        String s = "";
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
+            s += pair.getKey() + " -> " + pair.getValue() + "\n";
             it.remove(); // avoids a ConcurrentModificationException
         }
-        return "";
-    }
-
-    public App() {
-        loadFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Create a FileChooser
-                JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-                int returnValue = jfc.showOpenDialog(null);
-                // int returnValue = jfc.showSaveDialog(null);
-
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = jfc.getSelectedFile();
-                    HashMap<String, HashMap<String, Integer>> lsa = null;
-                    try {
-                         lsa = read_lsa(selectedFile);
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                    System.out.println(lsa);
-                    lsa_info.
-                }
-
-            }
-        });
+        return s;
     }
 
     public static void main(String[] args) {
