@@ -1,4 +1,4 @@
-package com.LSRCompute;
+package com.LSRCompute.GUI;
 
 /* Data Structure */
 import java.util.HashMap;
@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /* LSRCompute class */
-import com.LSRCompute.LSRCompute;
 
 public class App {
     private JButton loadFile;
@@ -24,10 +23,14 @@ public class App {
     private JButton addNodeButton;
     private JButton addLinkButton;
     private JButton breakLinkButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField addNodeText;
+    private JTextField addLinkText;
+    private JTextField breakLinkText;
     private JTextArea lsa_info_display;
+    private JTextField selectSourceText;
+    private JButton singleStep;
+    private JButton computeAll;
+    private JTextArea textArea1;
 
     public App() {
 
@@ -47,7 +50,6 @@ public class App {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
-                    System.out.println(lsa);
                     lsa_info_display.append(lsa_to_String(lsa));
                 }
 
