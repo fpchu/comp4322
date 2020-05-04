@@ -22,6 +22,12 @@ public class App {
     private JButton loadFile;
     private JPanel panelMain;
     private JTextArea lsa_info;
+    private JButton singleStep;
+    private JButton computeAll;
+    private JEditorPane selectSource;
+    private JTextArea displayResult;
+    private JButton button1;
+    private JButton button2;
 
     public App() {
         loadFile.addActionListener(new ActionListener() {
