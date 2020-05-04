@@ -21,18 +21,18 @@ import com.LSRCompute.LSRCompute;
 public class App {
     private JButton loadFile;
     private JPanel panelMain;
-    private JTextArea lsa_info;
-    private JButton singleStep;
-    private JButton computeAll;
-    private JEditorPane selectSource;
-    private JTextArea displayResult;
-    private JButton addNode;
+    private JButton button1;
+    private JTextArea textArea1;
     private JButton button2;
     private JButton button3;
-    private JEditorPane editorPane2;
-    private JEditorPane editorPane3;
+    private JButton button4;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextArea lsa_info_display;
 
     public App() {
+        /*
         loadFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,11 +50,12 @@ public class App {
                         ioException.printStackTrace();
                     }
                     System.out.println(lsa);
-                    lsa_info.append(lsa_to_String(lsa));
+                    lsa_info_display.append(lsa_to_String(lsa));
                 }
 
             }
         });
+         */
     }
 
     private static HashMap<String, HashMap<String, Integer>> read_lsa(File fn) throws IOException {
