@@ -8,52 +8,44 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="b4f8f" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <scrollpane id="6e765">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Button"/>
-        </properties>
-      </component>
-      <hspacer id="2a9ec">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
-      <component id="7447f" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
-        <constraints>
-          <grid row="1" column="2" row-span="3" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="1" column="2" row-span="3" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
-      </component>
-      <component id="22bfa" class="javax.swing.JButton" binding="button2" default-binding="true">
+        <border type="none"/>
+        <children>
+          <component id="730d5" class="javax.swing.JTextArea" binding="lsa_info_display">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="7f1b6" class="javax.swing.JButton" binding="addNodeButton">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Add Node"/>
         </properties>
       </component>
-      <component id="2d290" class="javax.swing.JButton" binding="button3" default-binding="true">
+      <component id="338e8" class="javax.swing.JButton" binding="addLinkButton" default-binding="true">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Add Link"/>
         </properties>
       </component>
-      <component id="d5829" class="javax.swing.JButton" binding="button4" default-binding="true">
+      <component id="37496" class="javax.swing.JButton" binding="breakLinkButton">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Break Link"/>
         </properties>
       </component>
-      <component id="9fd21" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="6a67b" class="javax.swing.JTextField" binding="textField1" default-binding="true">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -61,7 +53,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="db8df" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="10e1" class="javax.swing.JTextField" binding="textField2" default-binding="true">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -69,7 +61,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="c9124" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="40d39" class="javax.swing.JTextField" binding="textField3" default-binding="true">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -77,9 +69,17 @@
         </constraints>
         <properties/>
       </component>
-      <vspacer id="360e2">
+      <component id="6b2" class="javax.swing.JButton" binding="loadFile">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Load File"/>
+        </properties>
+      </component>
+      <vspacer id="655f1">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
     </children>

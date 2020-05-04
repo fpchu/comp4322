@@ -21,18 +21,16 @@ import com.LSRCompute.LSRCompute;
 public class App {
     private JButton loadFile;
     private JPanel panelMain;
-    private JButton button1;
-    private JTextArea textArea1;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
+    private JButton addNodeButton;
+    private JButton addLinkButton;
+    private JButton breakLinkButton;
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextArea lsa_info_display;
 
     public App() {
-        /*
+
         loadFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,7 +53,6 @@ public class App {
 
             }
         });
-         */
     }
 
     private static HashMap<String, HashMap<String, Integer>> read_lsa(File fn) throws IOException {
