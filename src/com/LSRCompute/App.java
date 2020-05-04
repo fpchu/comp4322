@@ -26,8 +26,11 @@ public class App {
     private JButton computeAll;
     private JEditorPane selectSource;
     private JTextArea displayResult;
-    private JButton button1;
+    private JButton addNode;
     private JButton button2;
+    private JButton button3;
+    private JEditorPane editorPane2;
+    private JEditorPane editorPane3;
 
     public App() {
         loadFile.addActionListener(new ActionListener() {
