@@ -30,7 +30,7 @@ public class App {
     private JTextField selectSourceText;
     private JButton singleStep;
     private JButton computeAll;
-    private JTextArea textArea1;
+    private JTextArea status_line_display;
 
     public App() {
 

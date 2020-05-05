@@ -119,7 +119,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="49160" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="49160" class="javax.swing.JTextArea" binding="status_line_display">
             <constraints/>
             <properties>
               <editable value="false"/>

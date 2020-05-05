@@ -13,41 +13,35 @@ public class Router {
     private HashMap<String, Integer> costMap;
     private HashMap<String, ArrayList<String>> routeTable;
 
-    public Router(String id, HashMap<String, HashMap<String, Integer>> lsa) {
+    public Router(String id, HashMap<String, HashMap<String, Integer>> lsa, HashMap<String, Integer> neighbors) {
         this.id = id;
         this.lsdb = lsa;
-        this.neighbors = this.getNeighbors();
-
-        // Initialize the costMap iteratively
-        this.costMap = new HashMap<String, Integer>();
-        for (String node:this.getAllNodes()) {
-            this.costMap.put(node, shortest_path_cost(this.id, node));
-        }
-
-        // Initialize the routeTable iteratively
-        this.routeTable = new HashMap<String, ArrayList<String>>();
-        for (String node:this.getAllNodes()) {
-            this.routeTable.put(node, shortest_path(this.id, node));
-        }
+        this.neighbors = neighbors;
+        this.costMap = this.compute_costMap();
+        this.routeTable = this.compute_routeTable();
     }
 
     public HashMap<String, Integer> getNeighbors() {
         return this.lsdb.get(this.id);
     }
 
-    public ArrayList<String> getAllNodes() {
-        Iterator it = lsdb.entrySet().iterator();
-
-        ArrayList<String> xs = new ArrayList<>();
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry)it.next();
-            String key = pair.getKey().toString();
-            if (key != this.id)
-                xs.add(key);
-            it.remove(); // avoids a ConcurrentModificationException
+    HashMap<String, Integer> compute_costMap() {
+        HashMap<String, Integer> costMap = new HashMap<String, Integer>();
+        for (String node:this.lsdb.keySet()) {
+            costMap.put(node, shortest_path_cost(this.id, node));
         }
-        return xs;
+        return costMap;
     }
+
+    HashMap<String, ArrayList<String>> compute_routeTable() {
+        routeTable = new HashMap<String, ArrayList<String>>();
+        for (String node:this.lsdb.keySet()) {
+            this.routeTable.put(node, shortest_path(this.id, node));
+        }
+        return routeTable;
+    }
+
+
     int shortest_path_cost(String source, String target) {
         return Integer.MAX_VALUE;
     }
