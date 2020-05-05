@@ -24,11 +24,17 @@ public class LSRCompute {
         return this.lsa.get(node);
     }
 
+    public void update() {}
+
     public void addNode(String node) {
         lsa.put(node, null);
+        this.update();
     }
 
     public void addLink(String node1, String node2, int weight) {
-        
+        this.lsa.get(node1).put(node2, weight);
+        this.lsa.get(node2).put(node1, weight);
+        this.update();
     }
+
 }
