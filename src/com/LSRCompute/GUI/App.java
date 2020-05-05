@@ -33,6 +33,8 @@ public class App {
     private JButton singleStep;
     private JButton computeAll;
     private JTextArea status_line_display;
+    private JButton deleteNodeButton;
+    private JTextField textField1;
 
     LSRCompute compute; // This is the Main object
 
@@ -55,6 +57,7 @@ public class App {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
+                    lsa_info_display.setText(null);
                     lsa_info_display.append(lsa_to_String(lsa));
 
                     compute = new LSRCompute(lsa); /* initialize the LSRCompute object */
