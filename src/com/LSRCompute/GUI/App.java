@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /* LSRCompute class */
+import com.LSRCompute.Util.LSRCompute;
+
 
 public class App {
     private JButton loadFile;
@@ -31,6 +33,9 @@ public class App {
     private JButton singleStep;
     private JButton computeAll;
     private JTextArea status_line_display;
+
+    LSRCompute compute; // This is the Main object
+
 
     public App() {
 
@@ -51,8 +56,40 @@ public class App {
                         ioException.printStackTrace();
                     }
                     lsa_info_display.append(lsa_to_String(lsa));
+
+                    compute = new LSRCompute(lsa); /* initialize the LSRCompute object */
                 }
 
+            }
+        });
+
+        addNodeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    ;
+                }
+                //compute.addNode();
+            }
+        });
+
+        addLinkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    ;
+                }
+                //compute.addLink();
+            }
+        });
+
+        breakLinkButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    ;
+                }
+                //compute.breakLink();
             }
         });
     }
