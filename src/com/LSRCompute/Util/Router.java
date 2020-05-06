@@ -3,7 +3,8 @@ package com.LSRCompute.Util;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Iterator;
-
+import java.util.PriorityQueue;
+import java.util.HashSet;
 
 public class Router {
 
@@ -47,6 +48,11 @@ public class Router {
     }
 
     public ArrayList<String> shortest_path(String source, String target) {
+
+        HashSet<String> Settled = new HashSet<String>();
+        PriorityQueue<HashMap<String, Integer>> Queue = new PriorityQueue<>()
+
+
         return null;
     }
 
