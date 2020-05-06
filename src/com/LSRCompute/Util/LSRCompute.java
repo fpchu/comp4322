@@ -14,15 +14,13 @@ public class LSRCompute {
 
     public LSRCompute(HashMap<String, HashMap<String, Integer>> lsa) {
         this.lsa = lsa;
+        this.network = new HashMap<String, Router>();
         for (String node:this.lsa.keySet()) {
             network.put(node, new Router(node, lsa));
         }
     }
 
-    private HashMap<String, Integer> getNeighborOf(String node) {
-        /* get the neighbor of the node with its costs */
-        return this.lsa.get(node);
-    }
+    public HashMap<String, Router> getNetwork() { return this.network; }
 
     public void update() {}
 
@@ -37,4 +35,8 @@ public class LSRCompute {
         this.update();
     }
 
+    @Override
+    public String toString() {
+        return "" + this.network.size();
+    }
 }

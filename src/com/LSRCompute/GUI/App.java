@@ -57,10 +57,12 @@ public class App {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
+
                     lsa_info_display.setText(null);
                     lsa_info_display.append(lsa_to_String(lsa));
 
                     compute = new LSRCompute(lsa); /* initialize the LSRCompute object */
+                    System.out.println(compute.getNetwork().get("B"));
                 }
 
             }
@@ -122,7 +124,7 @@ public class App {
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry)it.next();
             s += pair.getKey() + " -> " + pair.getValue() + "\n";
-            it.remove(); // avoids a ConcurrentModificationException
+            //it.remove(); // avoids a ConcurrentModificationException
         }
         return s;
     }
