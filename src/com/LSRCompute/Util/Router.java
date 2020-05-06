@@ -7,41 +7,24 @@ public class Router {
 
     public String id;
     private HashMap<String, HashMap<String, Integer>> lsdb;
-    private HashMap<String, Integer> neighbors;
-    private HashMap<String, Integer> costMap;
     private HashMap<String, ArrayList<String>> routeTable;
 
-    public Router(String id, HashMap<String, HashMap<String, Integer>> lsa, HashMap<String, Integer> neighbors) {
+    public Router(String id, HashMap<String, HashMap<String, Integer>> lsa) {
         this.id = id;
         this.lsdb = lsa;
-        this.neighbors = neighbors;
-        this.costMap = this.compute_costMap();
         this.routeTable = this.compute_routeTable();
     }
 
     public HashMap<String, Integer> getNeighbors() {
-        return this.lsdb.get(this.id);
-    }
-
-    HashMap<String, Integer> compute_costMap() {
-        HashMap<String, Integer> costMap = new HashMap<String, Integer>();
-        for (String node:this.lsdb.keySet()) {
-            costMap.put(node, shortest_path_cost(this.id, node));
-        }
-        return costMap;
+        return lsdb.get(id);
     }
 
     HashMap<String, ArrayList<String>> compute_routeTable() {
         routeTable = new HashMap<String, ArrayList<String>>();
         for (String node:this.lsdb.keySet()) {
-            this.routeTable.put(node, shortest_path(this.id, node));
+            routeTable.put(node, shortest_path(id, node));
         }
         return routeTable;
-    }
-
-
-    int shortest_path_cost(String source, String target) {
-        return Integer.MAX_VALUE;
     }
 
     public ArrayList<String> shortest_path(String source, String target) {
@@ -49,7 +32,15 @@ public class Router {
         HashSet<String> visited = new HashSet<>();
         PriorityQueue<Pair> pQ = new PriorityQueue<Pair>();
 
+        // Add the source node to the priorityQueue
+        pQ.add(new Pair(source, 0));
+        // Add all other node to the priorityQueue Setting the distance to infinity
+        for (String node:this.lsdb.keySet()) {
+            if (node == id) continue;
+            pQ.add(new Pair(node, Integer.MAX_VALUE));
+        }
 
+        
 
 
         return null;
@@ -62,14 +53,14 @@ class Pair implements Comparable<Pair> {
     private String node;
     private Integer distance;
 
-    public Pair(String node, Integer weight) {
+    public Pair(String node, Integer distance) {
         this.node = node;
-        this.distance = weight;
+        this.distance = distance;
     }
 
-    public String getKey() { return this.node; }
+    public String getKey() { return node; }
 
-    public Integer getValue() { return this.distance; }
+    public Integer getValue() { return distance; }
 
     @Override
     public int compareTo(Pair q) {

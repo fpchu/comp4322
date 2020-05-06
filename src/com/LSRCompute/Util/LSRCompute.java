@@ -15,7 +15,7 @@ public class LSRCompute {
     public LSRCompute(HashMap<String, HashMap<String, Integer>> lsa) {
         this.lsa = lsa;
         for (String node:this.lsa.keySet()) {
-            network.put(node, new Router(node, lsa, this.getNeighborOf(node)));
+            network.put(node, new Router(node, lsa));
         }
     }
 
