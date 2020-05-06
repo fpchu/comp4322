@@ -42,23 +42,12 @@ public class Router {
         // Add the source node to the priorityQueue
         pQ.add(new Pair(source, 0));
         // Add all other node to the priorityQueue Setting the distance to infinity
-        for (String node:this.lsdb.keySet()) {
+        for (String node : this.lsdb.keySet()) {
             if (node == id) continue;
             pQ.add(new Pair(node, Integer.MAX_VALUE));
         }
-
-        
-
-
-    public ArrayList<String> shortest_path(String source, String target) {
-
-        HashSet<String> Settled = new HashSet<String>();
-        PriorityQueue<HashMap<String, Integer>> Queue = new PriorityQueue<>()
-
-
         return null;
     }
-
 }
 
 class Pair implements Comparable<Pair> {
