@@ -1,8 +1,6 @@
 package com.LSRCompute.Util;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 
 public class Router {
@@ -47,7 +45,34 @@ public class Router {
     }
 
     public ArrayList<String> shortest_path(String source, String target) {
+
+        HashSet<String> visited = new HashSet<>();
+        PriorityQueue<Pair> pQ = new PriorityQueue<Pair>();
+
+
+
+
         return null;
     }
 
+}
+
+class Pair implements Comparable<Pair> {
+
+    private String node;
+    private Integer distance;
+
+    public Pair(String node, Integer weight) {
+        this.node = node;
+        this.distance = weight;
+    }
+
+    public String getKey() { return this.node; }
+
+    public Integer getValue() { return this.distance; }
+
+    @Override
+    public int compareTo(Pair q) {
+        return this.distance.compareTo(q.distance);
+    }
 }
