@@ -46,9 +46,16 @@ public class Router {
             pQ.add(costMap.get(s));
         }
 
+        /* Initialize the Path, Start with the source */
+        for (String s: costMap.keySet()) {
+            costMap.get(s).appendPath(id);
+        }
+
+
         while (visited.size() < lsdb.size()) {
 
             Destination currentNode = pQ.poll();
+
             if (visited.contains(currentNode)) // predicted duplicate node due to the stupid PQ
                 continue;
 
@@ -66,11 +73,19 @@ public class Router {
                 Integer newDistance = cost + currentNode.getDistance();
 
                 if (newDistance < costMap.get(neighbor_id).getDistance()) {
-                    pQ.add(new Destination(neighbor_id, newDistance));
+                    /* update distance cost */
+                    Destination updateObject = new Destination(neighbor_id, newDistance);
+
                     costMap.get(neighbor_id).setDistance(newDistance);
+
+                    /* update path */
+                    ArrayList<String> newPath = currentNode.copyPath();
+                    newPath.add(neighbor_id);
+                    costMap.get(neighbor_id).overwritePath(newPath);
+                    updateObject.overwritePath(newPath);
+                    pQ.add(updateObject);
                 }
             }
-
             visited.add(currentNode.getKey());
         }
         return costMap;
@@ -101,7 +116,21 @@ class Destination implements Comparable<Destination> {
 
     public Integer getDistance() { return distance; }
 
+    public ArrayList<String> getPath() { return path; }
+
     public void setDistance(Integer value) { this.distance = value; }
+
+    public void appendPath(String s) { this.path.add(s); }
+
+    public void overwritePath(ArrayList<String> p) { this.path = p; }
+
+    public ArrayList<String> copyPath() {
+        ArrayList<String> p = new ArrayList<String>();
+        for (String s: path) {
+            p.add(s);
+        }
+        return p;
+    }
 
     @Override
     public int compareTo(Destination r) {
@@ -110,8 +139,16 @@ class Destination implements Comparable<Destination> {
 
     @Override
     public String toString() { // Debugging purpose
+
+        String p = "";
+
+        for (String d: path) {
+            p += (d + "->");
+        }
+
         return "Destination{" +
                 "node='" + node + '\'' +
+                ", path=" + path +
                 ", distance=" + distance +
                 '}';
     }
