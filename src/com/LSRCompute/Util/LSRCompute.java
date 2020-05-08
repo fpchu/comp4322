@@ -20,23 +20,54 @@ public class LSRCompute {
         }
     }
 
+    public HashMap<String, HashMap<String, Integer>> getLsa() { return lsa; }
     public HashMap<String, Router> getNetwork() { return this.network; }
 
-    public void update() {}
 
-    public void addNode(String node) {
-        lsa.put(node, null);
-        this.update();
+    public void update() {
+        this.network = new HashMap<String, Router>();
+        for (String node:this.lsa.keySet()) {
+            network.put(node, new Router(node, lsa));
+        }
     }
 
-    public void addLink(String node1, String node2, int weight) {
-        this.lsa.get(node1).put(node2, weight);
-        this.lsa.get(node2).put(node1, weight);
-        this.update();
+    public void addNode(HashMap<String, HashMap<String, Integer>> newEntry) {
+        lsa.putAll(newEntry);
     }
 
-    @Override
-    public String toString() {
-        return "" + this.network.size();
+    public void deleteNode(String router) {
+        // remove the router
+        lsa.remove(router);
+        // remove the connection link
+        for (String r: lsa.keySet()) {
+            if (lsa.get(r).containsKey(router))
+                lsa.get(r).remove(router);
+        }
+    }
+
+    public void deleteLink(String link) {
+        String[] pair = link.split("->");
+        String key1 = pair[0];
+        String key2 = pair[1];
+        lsa.get(key1).remove(key2);
+        lsa.get(key2).remove(key1);
+
+    }
+
+    public String routerPaths(String router) {
+        return network.get(router).printAllPath();
+    }
+
+    public String allRoutersPath() {
+        String s = "";
+
+        for (String router: network.keySet()) {
+            s += "Starting Point: " + router + "\n";
+            s += network.get(router).printAllPath();
+            s += "\n";
+        }
+
+        //s += network.get("A").printAllPath();
+        return s;
     }
 }

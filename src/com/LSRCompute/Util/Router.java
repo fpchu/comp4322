@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 
-
 public class Router {
 
     private String id;
@@ -51,7 +50,6 @@ public class Router {
             costMap.get(s).appendPath(id);
         }
 
-
         while (visited.size() < lsdb.size()) {
 
             Destination currentNode = pQ.poll();
@@ -60,6 +58,10 @@ public class Router {
                 continue;
 
             HashMap<String, Integer> neighbors = getNeighborsOf(currentNode.getKey());
+            if (neighbors == null) {
+                /* isolated node should not be connected */
+                continue;
+            }
 
             for (String neighbor_id: neighbors.keySet()) {
 
@@ -91,12 +93,30 @@ public class Router {
         return costMap;
     }
 
+    public String printPath(String node) {
+
+        String s = "";
+        for (String st: routeTable.get(node).getPath()) {
+            s += st + "->";
+        }
+        return s.substring(0, s.length()-2);
+
+    }
+
+    public String printAllPath() {
+        String s = "";
+        for (String st: routeTable.keySet()) {
+            if (st == id)
+                continue;
+            s += "Destination " + st + ": ";
+            s += printPath(st) + " " + "Cost:" + routeTable.get(st).getDistance() + "\n";
+        }
+        return s;
+    }
+
     @Override
     public String toString() {
-        return "Router{" +
-                "id='" + id + '\'' +
-                ", routeTable=" + routeTable +
-                '}';
+        return "Node: " + id + "\n" + "lsdb=" + lsdb + "\n";
     }
 }
 
@@ -126,9 +146,8 @@ class Destination implements Comparable<Destination> {
 
     public ArrayList<String> copyPath() {
         ArrayList<String> p = new ArrayList<String>();
-        for (String s: path) {
+        for (String s: path)
             p.add(s);
-        }
         return p;
     }
 
