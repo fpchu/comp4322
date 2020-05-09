@@ -32,7 +32,14 @@ public class LSRCompute {
     }
 
     public void addNode(HashMap<String, HashMap<String, Integer>> newEntry) {
+        // Add the routers
         lsa.putAll(newEntry);
+        // add the links
+        for (String r: newEntry.keySet()) {
+            for (String sr: lsa.get(r).keySet()) {
+                lsa.get(sr).put(r, newEntry.get(r).get(sr));
+            }
+        }
     }
 
     public void deleteNode(String router) {

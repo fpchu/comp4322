@@ -26,7 +26,7 @@ public class Router {
 
         HashMap<String, Destination> costMap = new HashMap<String, Destination>();
 
-        /* initialize the map which store the object Destination */
+        /* initialize the map which store the Destination object */
         for (String node: this.lsdb.keySet()) {
             if (node == id) {
                 costMap.put(node, new Destination(node, 0));

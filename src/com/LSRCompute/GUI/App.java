@@ -4,6 +4,7 @@ package com.LSRCompute.GUI;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Arrays;
 
 /* File handling */
 import java.io.File;
@@ -43,6 +44,8 @@ public class App {
 
     LSRCompute compute; // This is the Main object
 
+    String[] singleStepRemain;
+
 
     public App() {
 
@@ -62,7 +65,11 @@ public class App {
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
-
+                    addNodeText.setText(null);
+                    breakLinkText.setText(null);
+                    deleteNodeText.setText(null);
+                    selectSourceText.setText(null);
+                    status_line_display.setText(null);
                     lsa_info_display.setText(null);
                     lsa_info_display.append(lsa_to_String(lsa));
 
@@ -110,26 +117,47 @@ public class App {
         });
 
         singleStep.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 try {
                     String text = selectSourceText.getText();
                     String[] s = compute.routerPaths(text).split("\n");
-                    int i = 0;
-                    do {
-                        status_line_display.append(s[i++]);
-                    } while (i < s.length && e.getSource().equals(nextButton));
 
+                    status_line_display.setText(null);
+                    status_line_display.append(s[0] + "\n");
+                    if (s.length <= 1) {
+                        singleStepRemain = null;
+                    } else {
+                        singleStepRemain = Arrays.copyOfRange(s, 1, s.length-1);
+                    }
                 } catch (Exception error) {
                     JOptionPane.showMessageDialog(null, "Invalid source input");
                 }
             }
         });
+
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ;
+                if (compute == null) {
+                    JOptionPane.showMessageDialog(null, "Plesae load the file beforehand");
+                    return;
+                }
+
+                if (singleStep == null) {
+                    JOptionPane.showMessageDialog(null, "No more path");
+                    return;
+                }
+
+                status_line_display.append(singleStepRemain[0] + "\n");
+                if (singleStepRemain.length <= 1) {
+                    singleStepRemain = null;
+                }
+                else {
+                    singleStepRemain = Arrays.copyOfRange(singleStepRemain, 1, singleStepRemain.length-1);
+                }
             }
         });
 
@@ -165,9 +193,14 @@ public class App {
                 lsa_info_display.setText(lsa_to_String(compute.getLsa()));
             }
         });
+
         deleteNodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    JOptionPane.showMessageDialog(null, "Plesae load the file beforehand");
+                    return;
+                }
                 String text = deleteNodeText.getText();
                 String[] nodes = text.split(",");
                 if (text == "")
@@ -184,6 +217,10 @@ public class App {
         breakLinkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    JOptionPane.showMessageDialog(null, "Plesae load the file beforehand");
+                    return;
+                }
                 String text = breakLinkText.getText();
                 String[] links = text.split(",");
                 for (String link: links) {
@@ -196,14 +233,21 @@ public class App {
         modifyNetworkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    JOptionPane.showMessageDialog(null, "Plesae load the file beforehand");
+                    return;
+                }
                 compute.update();
-                System.out.println(compute.getNetwork().get("A"));
             }
         });
 
         dumpLSAFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (compute == null) {
+                    JOptionPane.showMessageDialog(null, "Plesae load the file beforehand");
+                    return;
+                }
                 // parent component of the dialog
                 JFrame parentFrame = new JFrame();
 
@@ -234,6 +278,7 @@ public class App {
     }
 
     private static String lsa2String(HashMap<String, HashMap<String, Integer>> lsa) {
+
         String s = "";
 
         for (String node: lsa.keySet()) {
