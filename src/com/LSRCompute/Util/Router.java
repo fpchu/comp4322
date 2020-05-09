@@ -40,9 +40,12 @@ public class Router {
         HashSet<String> visited = new HashSet<String>();
 
         /* PriorityQueue store the object of the Destination which come from rMap.
-         * We can modify the Destination in the rMap which bring the changes to pQ as well */
+         * We can modify the Destination in the rMap which bring the changes to pQ as well
+         * I need a deep copy of object instead of shallow one
+         */
+
         for (String s: costMap.keySet()) {
-            pQ.add(costMap.get(s));
+            pQ.add(costMap.get(s).deepCopy());
         }
 
         /* Initialize the Path, Start with the source */
@@ -51,13 +54,18 @@ public class Router {
         }
 
         while (visited.size() < lsdb.size()) {
+            System.out.println("I am router: " + id);
+            System.out.println("Top of the pQ: " + pQ.peek());
+            Destination currentNode = pQ.poll(); // from starting point to all of the nodes
 
-            Destination currentNode = pQ.poll();
-
-            if (visited.contains(currentNode)) // predicted duplicate node due to the stupid PQ
+            System.out.println("Current Node: " + currentNode.getKey());
+            if (visited.contains(currentNode.getKey())) {// predicted duplicate node due to the stupid PQ
+                System.out.println(currentNode.getKey() + " has been visited.");
                 continue;
+            }
 
             HashMap<String, Integer> neighbors = getNeighborsOf(currentNode.getKey());
+            System.out.println("neighbors: " + neighbors);
             if (neighbors == null) {
                 /* isolated node should not be connected */
                 continue;
@@ -77,6 +85,7 @@ public class Router {
                 if (newDistance < costMap.get(neighbor_id).getDistance()) {
                     /* update distance cost */
                     Destination updateObject = new Destination(neighbor_id, newDistance);
+                    System.out.println("The update");
 
                     costMap.get(neighbor_id).setDistance(newDistance);
 
@@ -88,6 +97,7 @@ public class Router {
                     pQ.add(updateObject);
                 }
             }
+            System.out.println("pQ After Update: " + pQ.toString());
             visited.add(currentNode.getKey());
         }
         return costMap;
@@ -120,7 +130,7 @@ public class Router {
     }
 }
 
-class Destination implements Comparable<Destination> {
+class Destination implements Comparable<Destination>, Cloneable {
 
     private String node;
     private Integer distance;
@@ -149,6 +159,15 @@ class Destination implements Comparable<Destination> {
         for (String s: path)
             p.add(s);
         return p;
+    }
+
+    public Destination deepCopy() {
+        Destination d = new Destination(node, distance);
+        for (String p: path)
+        {
+            d.appendPath(new String(p));
+        }
+        return d;
     }
 
     @Override
