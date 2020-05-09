@@ -278,7 +278,6 @@ public class App {
     }
 
     private static String lsa2String(HashMap<String, HashMap<String, Integer>> lsa) {
-
         String s = "";
 
         for (String node: lsa.keySet()) {
@@ -320,7 +319,6 @@ public class App {
     }
 
     public static String lsa_to_String(HashMap<String, HashMap<String, Integer>> lsa) {
-
         Iterator it = lsa.entrySet().iterator();
         String s = "";
         while (it.hasNext()) {
@@ -329,7 +327,6 @@ public class App {
             //it.remove(); // avoids a ConcurrentModificationException
         }
         return s;
-
     }
 
     public static void main(String[] args) {

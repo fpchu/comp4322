@@ -54,18 +54,18 @@ public class Router {
         }
 
         while (visited.size() < lsdb.size()) {
-            System.out.println("I am router: " + id);
-            System.out.println("Top of the pQ: " + pQ.peek());
+            //System.out.println("I am router: " + id);
+            //System.out.println("Top of the pQ: " + pQ.peek());
             Destination currentNode = pQ.poll(); // from starting point to all of the nodes
 
-            System.out.println("Current Node: " + currentNode.getKey());
+            //System.out.println("Current Node: " + currentNode.getKey());
             if (visited.contains(currentNode.getKey())) {// predicted duplicate node due to the stupid PQ
-                System.out.println(currentNode.getKey() + " has been visited.");
+                //System.out.println(currentNode.getKey() + " has been visited.");
                 continue;
             }
 
             HashMap<String, Integer> neighbors = getNeighborsOf(currentNode.getKey());
-            System.out.println("neighbors: " + neighbors);
+            //System.out.println("neighbors: " + neighbors);
             if (neighbors == null) {
                 /* isolated node should not be connected */
                 continue;
@@ -85,7 +85,7 @@ public class Router {
                 if (newDistance < costMap.get(neighbor_id).getDistance()) {
                     /* update distance cost */
                     Destination updateObject = new Destination(neighbor_id, newDistance);
-                    System.out.println("The update");
+                    //System.out.println("The update");
 
                     costMap.get(neighbor_id).setDistance(newDistance);
 
@@ -97,7 +97,7 @@ public class Router {
                     pQ.add(updateObject);
                 }
             }
-            System.out.println("pQ After Update: " + pQ.toString());
+            //System.out.println("pQ After Update: " + pQ.toString());
             visited.add(currentNode.getKey());
         }
         return costMap;
