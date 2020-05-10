@@ -42,9 +42,9 @@ public class App {
     private JButton clearButton;
     private JButton modifyNetworkButton;
 
-    LSRCompute compute; // This is the Main object
+    private LSRCompute compute; // This is the Main object
 
-    String[] singleStepRemain;
+    private String[] singleStepRemain;
 
 
     public App() {
@@ -78,17 +78,6 @@ public class App {
             }
         });
 
-
-        breakLinkButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (compute == null) {
-                    ;
-                }
-                //compute.breakLink();
-            }
-        });
-
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,6 +88,10 @@ public class App {
         showAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                addNodeText.setText(null);
+                breakLinkText.setText(null);
+                deleteNodeText.setText(null);
+                selectSourceText.setText(null);
                 status_line_display.setText(null);
                 status_line_display.setText(compute.allRoutersPath());
             }
@@ -130,7 +123,7 @@ public class App {
                     if (s.length <= 1) {
                         singleStepRemain = null;
                     } else {
-                        singleStepRemain = Arrays.copyOfRange(s, 1, s.length-1);
+                        singleStepRemain = Arrays.copyOfRange(s, 1, s.length);
                     }
                 } catch (Exception error) {
                     JOptionPane.showMessageDialog(null, "Invalid source input");
@@ -146,7 +139,7 @@ public class App {
                     return;
                 }
 
-                if (singleStep == null) {
+                if (singleStepRemain == null) {
                     JOptionPane.showMessageDialog(null, "No more path");
                     return;
                 }
@@ -156,7 +149,7 @@ public class App {
                     singleStepRemain = null;
                 }
                 else {
-                    singleStepRemain = Arrays.copyOfRange(singleStepRemain, 1, singleStepRemain.length-1);
+                    singleStepRemain = Arrays.copyOfRange(singleStepRemain, 1, singleStepRemain.length);
                 }
             }
         });
@@ -230,6 +223,7 @@ public class App {
                 lsa_info_display.setText(lsa_to_String(compute.getLsa()));
             }
         });
+
         modifyNetworkButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
